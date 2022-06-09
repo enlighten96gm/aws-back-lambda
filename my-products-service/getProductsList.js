@@ -1,13 +1,16 @@
 import products from "./mocks/products";
 
-export const getProductsList = (event, context, callback) => {
+export const getProductsList = async (event, context, callback) => {
+  // Suppouse to be BD entity here
+  const wholeProductsEntity = await products;
   const response = {
     statusCode: 200,
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true,
+      "Content-Type": "application/json;charset=UTF-8",
     },
-    body: JSON.stringify(products),
+    body: JSON.stringify(wholeProductsEntity),
     isBase64Encoded: false,
   };
   callback(null, response);
