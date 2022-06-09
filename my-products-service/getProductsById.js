@@ -12,7 +12,7 @@ export const getProductsById = async (event, context, callback) => {
     const id = event.pathParameters.productId;
     // Suppouse to be BD entity here
     let filteredProduct = await products.filter(
-      (product) => product.productId === id
+      (product) => product.id === id
     )[0];
 
     if (filteredProduct) {

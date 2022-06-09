@@ -2,13 +2,13 @@ import { getProductsById } from "../getProductsById";
 
 const mockCorrectID = {
   pathParameters: {
-    productId: "1",
+    id: "1",
   },
 };
 
 const mockIncorrectID = {
   pathParameters: {
-    productId: "999999",
+    id: "999999",
   },
 };
 
@@ -21,11 +21,13 @@ const mockedSuccessResponse = {
   },
   isBase64Encoded: false,
   body: JSON.stringify({
-    productName: "Iron",
-    productPrice: 2,
-    productCurrency: "$",
-    productCount: 100,
-    productId: "1",
+    count: 100,
+    description: "Iron",
+    id: "1",
+    price: 2.4,
+    title: "Standard Dwarf Iron",
+    image:
+      "https://media.istockphoto.com/photos/zinc-mine-nugget-picture-id172430480?k=20&m=172430480&s=612x612&w=0&h=eH83SmYBBKdtH8FyZ-9882xmtCIInXqK5Y4B-XwdNwY=",
   }),
 };
 
