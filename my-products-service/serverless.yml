@@ -1,0 +1,33 @@
+service: my-products-service
+
+# app and org for use with dashboard.serverless.com
+#app: your-app-name
+#org: your-org-name
+frameworkVersion: "3"
+
+# Add the serverless-webpack plugin
+plugins:
+  - serverless-auto-swagger
+  - serverless-webpack
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  region: eu-west-1
+  apiGateway:
+    minimumCompressionSize: 1024 #Enable gzip compression for responses > 1 KB
+
+functions:
+  getProductsList:
+    handler: getProductsList.getProductsList
+    events:
+      - httpApi:
+          path: /products
+          method: get
+  getProductsById:
+    handler: getProductsById.getProductsById
+    events:
+      - httpApi:
+          path: /products/{productId}
+          method: get
