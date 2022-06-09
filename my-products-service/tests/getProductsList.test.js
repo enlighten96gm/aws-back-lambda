@@ -5,6 +5,7 @@ const mockedSuccessResponse = {
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true,
+    "Content-Type": "application/json;charset=UTF-8",
   },
   isBase64Encoded: false,
   body: JSON.stringify([

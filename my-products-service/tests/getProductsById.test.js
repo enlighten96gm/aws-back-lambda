@@ -17,7 +17,7 @@ const mockedSuccessResponse = {
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true,
-    "Content-Type": "application/javascript;charset=UTF-8",
+    "Content-Type": "application/json;charset=UTF-8",
   },
   isBase64Encoded: false,
   body: JSON.stringify({
@@ -34,7 +34,7 @@ const mockedFailureResponse = {
   headers: {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true,
-    "Content-Type": "application/javascript;charset=UTF-8",
+    "Content-Type": "application/json;charset=UTF-8",
   },
   isBase64Encoded: false,
   body: JSON.stringify({ message: "Product not found" }),

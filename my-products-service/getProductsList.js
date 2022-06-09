@@ -8,6 +8,7 @@ export const getProductsList = async (event, context, callback) => {
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Credentials": true,
+      "Content-Type": "application/json;charset=UTF-8",
     },
     body: JSON.stringify(wholeProductsEntity),
     isBase64Encoded: false,

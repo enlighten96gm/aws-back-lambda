@@ -4,7 +4,7 @@ export const getProductsById = async (event, context, callback) => {
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Credentials": true,
-    "Content-Type": "application/javascript;charset=UTF-8",
+    "Content-Type": "application/json;charset=UTF-8",
   };
   let response;
 
