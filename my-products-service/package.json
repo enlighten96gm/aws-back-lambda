@@ -20,6 +20,7 @@
   "license": "MIT",
   "dependencies": {
     "jest": "^28.1.1",
+    "pg": "^8.7.3",
     "serverless-auto-swagger": "^2.5.1"
   }
 }
