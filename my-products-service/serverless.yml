@@ -14,11 +14,11 @@ provider:
   name: aws
   runtime: nodejs12.x
   environment:
-    PG_HOST: lesson4-instance.c50kyrm8ivev.eu-west-1.rds.amazonaws.com
-    PG_PORT: 5432
-    PG_DATABASE: lesson4
-    PG_USERNAME: postgres
-    PG_PASSWORD: 9tMN82lWwqj6IsC9fz5W
+    PG_HOST: ${PG__HOST}
+    PG_PORT: ${PG__PORT}
+    PG_DATABASE: ${PG__DATABASE}
+    PG_USERNAME: ${PG__USERNAME}
+    PG_PASSWORD: ${PG__PASSWORD}
   stage: dev
   region: eu-west-1
   apiGateway:
