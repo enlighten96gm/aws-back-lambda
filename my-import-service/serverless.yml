@@ -27,6 +27,19 @@ provider:
         - "s3:*"
       Resource:
         - "arn:aws:s3:::my-import-service/*"
+    - Effect: "Allow"
+      Action: "sqs:*"
+      Resource:
+        - Fn::GetAtt: [SQSQueue, Arn]
+  environment:
+    SQS_URL: { Ref: SQSQueue }
+
+resources:
+  Resources:
+    SQSQueue:
+      Type: AWS::SQS::Queue
+      Properties:
+        QueueName: my-import-service-queue-gleb
 
 functions:
   importProductsFile:

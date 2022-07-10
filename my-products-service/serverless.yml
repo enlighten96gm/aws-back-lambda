@@ -5,6 +5,12 @@ service: my-products-service
 #org: your-org-name
 frameworkVersion: "3"
 
+custom:
+  serverless-auto-swagger:
+    apiType: "httpApi"
+    generateSwaggerOnDeploy: true
+    typefiles: ["./src/types/api-types.d.ts"]
+
 # Add the serverless-webpack plugin
 plugins:
   - serverless-auto-swagger
@@ -19,10 +25,44 @@ provider:
     PG_DATABASE: ${PG__DATABASE}
     PG_USERNAME: ${PG__USERNAME}
     PG_PASSWORD: ${PG__PASSWORD}
+    SNS_ARN: { Ref: SNSTopic }
   stage: dev
   region: eu-west-1
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - "lambda:InvokeFunction"
+      Resource: "*"
+    - Effect: "Allow"
+      Action: "sns:*"
+      Resource:
+        Ref: SNSTopic
   apiGateway:
     minimumCompressionSize: 1024 #Enable gzip compression for responses > 1 KB
+
+resources:
+  Resources:
+    SNSTopic:
+      Type: AWS::SNS::Topic
+      Properties:
+        TopicName: my-product-service-topic-gleb
+    SNSSubscription:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ${FIRST__EMAIL}
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+    SNSSubscriptionFiltered:
+      Type: AWS::SNS::Subscription
+      Properties:
+        Endpoint: ${SECOND__EMAIL}
+        Protocol: email
+        TopicArn:
+          Ref: SNSTopic
+        FilterPolicy:
+          image:
+            - true
 
 functions:
   fillDb:
@@ -45,3 +85,10 @@ functions:
       - httpApi:
           path: /products
           method: post
+          bodyType: "Product"
+  catalogBatchProcess:
+    handler: catalogBatchProcess.catalogBatchProcess
+    events:
+      - sqs:
+          batchSize: 5
+          arn: arn:aws:sqs:eu-west-1:789720210154:my-import-service-queue-gleb

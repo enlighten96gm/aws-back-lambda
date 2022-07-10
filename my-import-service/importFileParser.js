@@ -4,6 +4,7 @@ import csv from "csv-parser";
 
 export const importFileParser = async (event) => {
   const s3 = new AWS.S3({ region: "eu-west-1" });
+  const sqs = new AWS.SQS();
   for (const record of event.Records) {
     const key = record.s3.object.key;
     const bucketName = record.s3.bucket.name;
@@ -37,6 +38,18 @@ export const importFileParser = async (event) => {
           .createReadStream()
           .pipe(csv())
           .on("data", (item) => {
+            sqs.sendMessage(
+              {
+                QueueUrl: process.env.SQS_URL,
+                MessageBody: JSON.stringify(item),
+              },
+              (error, message) => {
+                if (error) {
+                  console.log("We'v got some error: ", error);
+                }
+                console.log("Successfully sent message: ", message);
+              }
+            );
             console.log(item);
           })
           .on("end", handleParseAndUpdate);
